@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--底部导航栏-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_news"
+        android:icon="@drawable/ic_menu_customer"
+        android:title="@string/menu_client" />
+    <item
+        android:id="@+id/nav_task"
+        android:icon="@drawable/ic_menu_task"
+        android:title="@string/menu_task" />
+    <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/ic_menu_map"
+        android:title="@string/menu_map" />
+    <item
+        android:id="@+id/nav_mine"
+        android:icon="@drawable/ic_menu_mine"
+        android:title="@string/menu_mine" />
+</menu>

@@ -1,0 +1,6 @@
+底部标签栏设置
+====================================================================================
+include_main.xml中<com.google.android.material.bottomnavigation.BottomNavigationView>
+
+menu/menu_navigation_bottom.xml中设置图标
+

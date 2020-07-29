@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView style="@style/ScrollViewStyle">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/bt_start"
+        style="@style/SuperButton.Blue"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:text="开始服务"/>
+    <LinearLayout
+        android:id = "@+id/ll_times"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextStyle.Title"
+            android:text="服务时间" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id = "@+id/ll_plan_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextStyle.Title"
+            android:text="计划时间" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id = "@+id/cl_service_items"
+        android:layout_width  = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop   ="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background">
+        <TextView
+            android:id = "@+id/tv_service_items"
+            android:layout_width ="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/cl_service_items"
+            app:layout_constraintTop_toTopOf  = "@id/cl_service_items"
+            android:text="服务项目"
+            style="@style/TextStyle.Title"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf ="parent"
+            app:layout_constraintTop_toTopOf     = "parent"
+            android:text="修改"
+            style="@style/TextStyle.Explain"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id = "@+id/rv_service_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_service_items"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_service_items"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id = "@+id/ll_audio_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop   ="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background" >
+        <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+            android:id="@+id/super_switch_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:sDividerLineType="both"
+            app:sLeftTextString="音频视频"
+            app:sRightViewType="switchBtn"
+            app:sSwitchIsChecked="true"
+            app:sThumbResource="@drawable/thumb"
+            app:sTrackResource="@drawable/track" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop   ="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextStyle.Title"
+            android:text="服务拍照" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id = "@+id/rv_photos"
+            android:layout_marginTop="?attr/xui_config_content_spacing_horizontal"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop   ="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background">
+        <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+            android:id="@+id/stv_sign"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/InfoItem.Account"
+            app:sLeftTextString="客户签字" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop   ="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cardview_light_background">
+        <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+            android:id="@+id/stv_expandable"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            app:sDividerLineType="none"
+            app:sLeftTextString="照护日志"
+            app:sRightIconRes="@drawable/ic_arrow_right"
+            app:sRightViewMarginRight="0dp" />
+        <com.xuexiang.xui.widget.layout.ExpandableLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/xui_config_color_white"
+            app:el_duration="300"
+            app:el_expanded="false">
+            <TextView
+                android:id="@+id/tv_content"
+                style="@style/TextStyle.Explain"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:singleLine="false"
+                android:text="测试" />
+        </com.xuexiang.xui.widget.layout.ExpandableLayout>
+    </LinearLayout>
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

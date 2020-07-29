@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (C) 2020 xuexiangjys(xuexiangjys@163.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M582.4,558.95c-77.64,-66.4 -95.7,-55.27 -95.7,-55.27 -32.42,18.06 -69.14,29.19 -108.74,29.19 -42.94,0 -82.66,-12.68 -116.87,-33.5 -139.01,65.31 -242.48,243.44 -257.67,459.72l749.33,2.87c-11.37,-169.16 -92.72,-336.75 -170.35,-403.02zM378.08,910.41l-55.63,-57.78 50.36,-264.49 -28.23,-39.35c7.18,-9.93 59.1,-10.89 66.87,0l-28.23,39.35 50.36,264.49 -55.51,57.78zM261.09,484.9c34.21,20.82 73.93,33.49 116.87,33.49 39.6,0 76.44,-11.12 108.74,-29.07 70.1,-38.75 118.19,-112.92 118.19,-199.05 0,-126.08 -101.56,-228.24 -226.93,-228.24s-226.93,102.16 -226.93,228.24c0,82.78 44.39,154.67 110.06,194.63zM905.39,688.98c-52.51,-44.86 -64.72,-37.45 -64.72,-37.45 -22.01,12.21 -46.89,19.74 -73.69,19.74 -29.07,0 -55.99,-8.61 -79.19,-22.73 -94.14,44.26 -164.25,164.97 -174.53,311.39l507.33,1.91c-7.41,-114.36 -62.57,-227.89 -115.2,-272.87zM766.98,927.04l-37.68,-39.12 34.09,-179.08 -19.13,-26.67c4.91,-6.7 39.95,-7.42 45.34,0l-19.02,26.67 34.09,179.08 -37.68,39.12zM687.91,638.86c23.09,14.11 50,22.73 79.19,22.73 26.79,0 51.68,-7.54 73.69,-19.73 47.49,-26.21 80.02,-76.45 80.02,-134.82 0,-85.41 -68.78,-154.56 -153.71,-154.56 -84.94,0 -153.72,69.14 -153.72,154.56 0,56.1 29.91,104.79 74.53,131.83z"/>
+</vector>

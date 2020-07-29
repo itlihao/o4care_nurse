@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/care_time_banner"
+    android:padding="0dp">
+    <TextView
+        android:id="@+id/text_care_time_name"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical|center"
+        android:text="姓名"
+        android:textSize = "14dp" />
+    <com.xuexiang.xui.widget.progress.CircleProgressView
+        android:id="@+id/progressView_circle_main"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        app:cpv_animate_type="AccelerateDecelerateInterpolator"
+        app:cpv_circle_broken="true"
+        app:cpv_end_color="@color/blue_start"
+        app:cpv_end_progress="98"
+        app:cpv_isFilled="false"
+        app:cpv_isTracked="true"
+        app:cpv_progress_duration="2000"
+        app:cpv_progress_textColor="@color/colorAccent"
+        app:cpv_progress_textSize="48sp"
+        app:cpv_progress_textVisibility="false"
+        app:cpv_start_color="@color/blue_end"
+        app:cpv_start_progress="0"
+        app:cpv_track_color="#F0F0F0"
+        app:cpv_track_width="26dp"
+        app:cpv_progress_width="26dp"/>
+</LinearLayout>
