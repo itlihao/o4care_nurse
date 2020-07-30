@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView style="@style/ScrollViewStyle">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/xui_ic_navigation_back_white"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@color/xui_config_color_white" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="开始时间" />
+
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="09:00" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="60:00"
+                    android:textSize="36sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="结束时间" />
+
+                <TextView
+                    android:id="@+id/tv_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10:00" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="计划时间" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="7月20日" />
+
+            <TextView
+                android:id="@+id/tv_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="周三" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="09:00" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_service_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_service_items"
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="服务项目"
+                app:layout_constraintLeft_toLeftOf="@id/cl_service_items"
+                app:layout_constraintTop_toTopOf="@id/cl_service_items" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_service_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_service_items"
+                app:layout_constraintTop_toBottomOf="@+id/tv_service_items" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="体征数据" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="体温" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="血压" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="血糖" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="心律" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:id="@+id/tv_temperature"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="36.5" />
+
+                <TextView
+                    android:id="@+id/tv_blood_pressure"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="80/115" />
+
+                <TextView
+                    android:id="@+id/tv_blood_sugar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="5.1" />
+
+                <TextView
+                    android:id="@+id/tv_heart_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="70" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="音频文件" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="视频文件" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="服务拍照" />
+
+            <com.yanzhenjie.recyclerview.SwipeRecyclerView
+                android:id="@+id/rv_photos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="客户签字" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextStyle.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:text="护理日志" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#30999999" />
+
+            <TextView
+                android:id="@+id/tv_logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="协助患者翻身擦背,测量生命体征,按医嘱正常服药,服务过程正常"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

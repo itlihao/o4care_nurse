@@ -1,0 +1,48 @@
+{
+  "status": 1,
+  "data": {
+    "record_id": 1,
+    "plan_time": "20200721 09:00",
+    "start_time": "09:00",
+    "end_time": "10:00",
+    "duration": "60",
+    "week": 2,
+    "start_lng": "120.361305",
+    "start_lat": "36.081840",
+    "end_lng": "120.361219",
+    "end_lat": "36.081928",
+    "items": [
+      {
+        "id": 11,
+        "name": "胃管留置",
+        "description": "胃管留置操作",
+        "category": 1
+      },
+      {
+        "id": 21,
+        "name": "输液",
+        "description": "输液",
+        "category": 2
+      }
+    ],
+    "temperature": "36.5",
+    "blood_pressure": "75/110",
+    "blood_sugar": "5.1",
+    "heart_rate": "70",
+    "audio": [
+      "http://xxxxx/photos/111_20200101101700.mp3",
+      "http://xxxxx/photos/111_20200101101701.mp3"
+    ],
+    "video": [
+      "http://xxxxx/videos/111_20200101101700.mp4",
+      "http://xxxxx/videos/111_20200101101700.mp4"
+    ],
+    "photos": [
+      "https://ae01.alicdn.com/kf/U8f29046315a345b488a91f19e0691d7bx.jpg",
+      "https://ae01.alicdn.com/kf/U8353ae5c8aaf48c8b810fdac9c6d2e6dp.jpg",
+      "https://ae01.alicdn.com/kf/U8f29046315a345b488a91f19e0691d7bx.jpg"
+    ],
+    "signature": "http://xxxxx/signature/111_20200101101701.jpg",
+    "note": "协助患者翻身擦背,测量生命体征,按医嘱正常服药,服务过程正常"
+  }
+}

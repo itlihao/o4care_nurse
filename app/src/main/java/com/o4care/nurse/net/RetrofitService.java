@@ -1,7 +1,11 @@
 package com.o4care.nurse.net;
 
+import com.o4care.nurse.bean.CarePlan;
 import com.o4care.nurse.bean.CustomerInfo;
+import com.o4care.nurse.bean.CustomerInfoBean;
 import com.o4care.nurse.bean.LoginBean;
+import com.o4care.nurse.bean.Record;
+import com.o4care.nurse.bean.RecordDetail;
 import com.o4care.nurse.bean.ServiceItem;
 
 import java.util.List;
@@ -51,4 +55,15 @@ public interface RetrofitService {
     @GET("care/allitems")
     Call<BaseEntity<List<ServiceItem>>> getServiceItems(@QueryMap Map<String, String> map);
 
+    @GET("customer/info")
+    Call<BaseEntity<CustomerInfoBean>> getCustomerInfo(@QueryMap Map<String, String> map);
+
+    @GET("care/record")
+    Call<BaseEntity<List<Record>>> getRecordItems(@QueryMap Map<String, String> map);
+
+    @GET("care/records/detail")
+    Call<BaseEntity<RecordDetail>> getRecordDetail(@QueryMap Map<String, String> map);
+
+    @GET("care/plan")
+    Call<BaseEntity<List<CarePlan>>> getCarePlan(@QueryMap Map<String, String> map);
 }

@@ -1,0 +1,39 @@
+{
+  "status": 1,
+  "total": -1,
+  "data": {
+    "name": "张三",
+    "sex": "男",
+    "age": 65,
+    "birthday": "1957-01-03",
+    "idcard": "270865198702162310",
+    "nation": "汉",
+    "tel": "17865473845",
+    "img_url": "https://ae01.alicdn.com/kf/U8353ae5c8aaf48c8b810fdac9c6d2e6dp.jpg",
+    "address": "金源小区10楼6单元301",
+    "lat": "56.87978",
+    "lng": "67.8976",
+    "height": 165,
+    "weight": 60,
+    "blood": "O",
+    "disease": "糖尿病",
+    "disease_pic": [
+      "https://ae01.alicdn.com/kf/U8f29046315a345b488a91f19e0691d7bx.jpg",
+      "https://ae01.alicdn.com/kf/U8353ae5c8aaf48c8b810fdac9c6d2e6dp.jpg",
+      "https://ae01.alicdn.com/kf/U8f29046315a345b488a91f19e0691d7bx.jpg"
+    ],
+    "contact": [
+      {
+        "name": "张四",
+        "tel": "18765456754",
+        "relation": "父子"
+      },
+      {
+        "name": "张五",
+        "tel": "18765456751",
+        "relation": "父女"
+      }
+    ],
+    "note": "无其他备注"
+  }
+}

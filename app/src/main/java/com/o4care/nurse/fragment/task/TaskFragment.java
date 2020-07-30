@@ -116,6 +116,7 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refreshLayout.getLayout().postDelayed(() -> {
 //                    mAdapter.refresh(DemoDataProvider.getDemoNewInfos());
+                    getCustomerList();
                     refreshLayout.finishRefresh();
                 }, 1000);
 
@@ -154,9 +155,6 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
             public void onSuccess(int flag, List<CustomerInfo> listCustNet) {
                 Log.d(TAG, "onSucess data");
                 listCust = listCustNet;
-                listCust.addAll(listCustNet);
-                listCust.addAll(listCustNet);
-                listCust.addAll(listCustNet);
                 for (int i = 0; i < listCustNet.size(); i++) {
                     Log.d(TAG, listCustNet.get(i).getAddress());
                     Log.d(TAG, String.valueOf(listCustNet.get(i).getDoneHourMon()));
