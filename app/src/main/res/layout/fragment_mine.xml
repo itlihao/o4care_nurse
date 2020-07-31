@@ -30,9 +30,11 @@
                     style="@style/InfoItem.Account"
                     app:sLeftTextString="账号" />
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                    android:id="@+id/tv_action"
                     style="@style/InfoItem.Account"
                     app:sLeftTextString="通知" />
                 <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+                    android:id="@+id/tv_save"
                     style="@style/InfoItem.Account"
                     app:sDividerLineType="none"
                     app:sLeftTextString="收藏" />

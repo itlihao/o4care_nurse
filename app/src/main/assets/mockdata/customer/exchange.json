@@ -1,0 +1,32 @@
+{
+  "status": 1,
+  "total": 2,
+  "rows": [
+    {
+      "record_id": 134,
+      "plan_time": "2020-05-01 9:00",
+      "plan_worker": 12,
+      "plan_worker_name": "张四",
+      "do_worker": 13,
+      "do_worker_name": "张三",
+      "end_time": "2020-05-01 10:00",
+      "cust_id": 34,
+      "cust_name": "张春华",
+      "cust_address": "金华路28号",
+      "state": 1
+    },
+    {
+      "record_id": 134,
+      "plan_time": "2020-05-01 9:00",
+      "plan_worker": 12,
+      "plan_worker_name": "张四",
+      "do_worker": 13,
+      "do_worker_name": "张三",
+      "end_time": "2020-05-01 10:00",
+      "cust_id": 34,
+      "cust_name": "张春华",
+      "cust_address": "金华路28号",
+      "state": 1
+    }
+  ]
+}

@@ -64,7 +64,7 @@ public class CarePlan {
         return plan_id;
     }
 
-    public class ItemsEntity {
+    public static class ItemsEntity {
         /**
          * name : 胃管留置
          * id : 1

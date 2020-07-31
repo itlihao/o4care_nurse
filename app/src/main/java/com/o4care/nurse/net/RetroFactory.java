@@ -4,11 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.o4care.nurse.utils.MMKVUtils;
 import com.shanbay.mock.MockApiInterceptor;
 import com.shanbay.mock.MockApiSuite;
 import com.shanbay.mock.api.StandardMockApi;
 import com.shanbay.mock.constant.MockHttpMethod;
-import com.o4care.nurse.utils.MMKVUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -36,46 +36,46 @@ public class RetroFactory {
      * 现在是base url不同,而非处理方式不同待考虑,
      */
     private static Retrofit jacksonRetrofit;
-    private static Retrofit gsonRetrofit ;
+    private static Retrofit gsonRetrofit;
     private static Retrofit upgradeRetrofit;
     private static Retrofit downRetrofit;
 
-    public static RetrofitService getJacksonService( Context mContextIn ) {
+    public static RetrofitService getJacksonService(Context mContextIn) {
         mContext = mContextIn;
-        if(jacksonRetrofit == null) {
+        if (jacksonRetrofit == null) {
             jacksonRetrofit = new Retrofit.Builder().client(getClient())
-                .baseUrl(BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
         }
         return jacksonRetrofit.create(RetrofitService.class);
     }
 
-    public static RetrofitService getUpdateService( Context mContextIn ) {
+    public static RetrofitService getUpdateService(Context mContextIn) {
         mContext = mContext;
-        if(upgradeRetrofit == null) {
+        if (upgradeRetrofit == null) {
             upgradeRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_UPDATE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                    .baseUrl(BASE_UPDATE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return upgradeRetrofit.create(RetrofitService.class);
     }
 
-    public static RetrofitService getGsonService( Context mContextIn ) {
+    public static RetrofitService getGsonService(Context mContextIn) {
         mContext = mContextIn;
-        if(gsonRetrofit == null) {
+        if (gsonRetrofit == null) {
             gsonRetrofit = new Retrofit.Builder().client(getClient())
-                .baseUrl(WATCH_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                    .baseUrl(WATCH_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return gsonRetrofit.create(RetrofitService.class);
     }
 
-    public static RetrofitService getDownService( Context mContextIn ) {
+    public static RetrofitService getDownService(Context mContextIn) {
         mContext = mContextIn;
-        if(downRetrofit == null) {
+        if (downRetrofit == null) {
             downRetrofit = new Retrofit.Builder().baseUrl(BASE_URL).build();
         }
         return downRetrofit.create(RetrofitService.class);
@@ -88,12 +88,13 @@ public class RetroFactory {
      */
     private static OkHttpClient getClient() {
         MockApiSuite suite = new MockApiSuite("customer");
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/user/exchange").setSuccessDataFile("exchange.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/worker/allcust").setSuccessDataFile("customer.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/allitems").setSuccessDataFile("service_items.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/customer/info").setSuccessDataFile("customer_info.json"));
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan").setSuccessDataFile("care_plan.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/records/detail").setSuccessDataFile("care_records_detail.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/record").setSuccessDataFile("care_record.json"));
-        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan").setSuccessDataFile("care_plan.json"));
         MockApiInterceptor mockApiInterceptor = new MockApiInterceptor(mContext);
         mockApiInterceptor.addMockApiSuite(suite);
 
@@ -106,25 +107,25 @@ public class RetroFactory {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-        .addInterceptor(mockApiInterceptor)
-        .addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Request.Builder builder1 = request.newBuilder();
+                .addInterceptor(mockApiInterceptor)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request.Builder builder1 = request.newBuilder();
 
-                String token =MMKVUtils.getString("token", "");
-                if (!TextUtils.isEmpty(token)) {
-                    builder1.addHeader("token", token);
-                }
-                Request build = builder1.build();
-                return chain.proceed(build);
-            }
-        })
-        .retryOnConnectionFailure(true)
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .addInterceptor(loggingInterceptor).build();
+                        String token = MMKVUtils.getString("token", "");
+                        if (!TextUtils.isEmpty(token)) {
+                            builder1.addHeader("token", token);
+                        }
+                        Request build = builder1.build();
+                        return chain.proceed(build);
+                    }
+                })
+                .retryOnConnectionFailure(true)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .addInterceptor(loggingInterceptor).build();
 
         return client;
     }

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.o4care.nurse.R;
 import com.o4care.nurse.bean.CustomerInfoBean;
 import com.o4care.nurse.bean.Record;
+import com.o4care.nurse.utils.Constants;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.recyclerview.XRecyclerAdapter;
@@ -16,7 +17,6 @@ import java.util.List;
  */
 public class CustomerRecordAdapter extends BaseRecyclerAdapter<Record> {
     private String TAG = "CustomerInfoPhotoAdapter";
-    private String[] week = new String[]{"周一", "周二", "周三", "周四", "周五", "周六", "周日",};
 
     /**
      * @param custData 客户信息列表
@@ -49,7 +49,7 @@ public class CustomerRecordAdapter extends BaseRecyclerAdapter<Record> {
         String[] time = start.split("\\s+");
         holder.text(R.id.tv_start, time[0]);
         holder.text(R.id.tv_time, time[1]);
-        holder.text(R.id.tv_week, week[model.getWeek()]);
+        holder.text(R.id.tv_week, Constants.week[model.getWeek()]);
         holder.text(R.id.tv_duration, String.format("%smin", model.getDuration()));
 
     }

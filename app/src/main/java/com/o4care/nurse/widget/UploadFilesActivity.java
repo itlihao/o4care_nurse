@@ -1,4 +1,4 @@
-package com.o4care.nurse.activity;
+package com.o4care.nurse.widget;
 
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
+import com.o4care.nurse.activity.BaseActivity;
 import com.o4care.nurse.fragment.customer.CustomerInfoFragment;
 import com.o4care.nurse.fragment.customer.CustomerListFragment;
 import com.o4care.nurse.fragment.customer.CustomerPlanFragment;
@@ -38,7 +39,7 @@ public class UploadFilesActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_upload;
     }
 
     protected void initViews() {

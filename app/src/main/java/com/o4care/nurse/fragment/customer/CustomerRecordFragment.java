@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.o4care.nurse.R;
-import com.o4care.nurse.activity.RecordDetailActivity;
 import com.o4care.nurse.adapter.CustomerRecordAdapter;
 import com.o4care.nurse.api.CareApi;
-import com.o4care.nurse.api.WorkerApi;
 import com.o4care.nurse.bean.Record;
 import com.o4care.nurse.fragment.BaseFragment;
 import com.o4care.nurse.net.BaseTask;
@@ -18,7 +16,6 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
-import com.xuexiang.xutil.app.ActivityUtils;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;

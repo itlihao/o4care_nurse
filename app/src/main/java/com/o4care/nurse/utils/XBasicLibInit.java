@@ -77,7 +77,7 @@ public final class XBasicLibInit {
             return AppPageConfig.getInstance().getPages();
         })
         .debug(MyApp.isDebug() ? "PageLog" : null)
-        .enableWatcher(MyApp.isDebug())
+        .enableWatcher(false)
         .setContainActivityClazz(BaseActivity.class)
         .init(application);
     }

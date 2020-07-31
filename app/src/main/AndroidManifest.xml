@@ -24,6 +24,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--声明后台定位权限-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="false"
@@ -35,7 +42,13 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan|stateHidden"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".activity.RecordDetailActivity"></activity>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="6b03c435360919d3a66df78c543c63b7" />
+
+        <activity android:name=".activity.CarePlanTimeActivity" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
@@ -60,6 +73,11 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.CustomerActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".widget.UploadFilesActivity"
             android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -141,6 +159,10 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
+
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service
+            android:name="com.amap.api.location.APSService"  />
     </application>
 
 </manifest>

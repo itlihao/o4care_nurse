@@ -3,6 +3,7 @@ package com.o4care.nurse.api;
 import android.content.Context;
 
 import com.o4care.nurse.bean.CarePlan;
+import com.o4care.nurse.bean.CarePlanEntity;
 import com.o4care.nurse.bean.Record;
 import com.o4care.nurse.bean.RecordDetail;
 import com.o4care.nurse.bean.ServiceItem;
@@ -49,6 +50,28 @@ public class CareApi extends BaseApi {
         map.put("cust_id", custId);
         map.put("worker_id", workId);
         new BaseTask<List<CarePlan>>(mContext, RetroFactory.getJacksonService(mContext).getCarePlan(map))
+                .handleResponse(responseListener);
+    }
+
+    public void addCarePlan(String custId, String workId, String week, String time, int[] items) {
+        Map<String, String> map = new HashMap<>();
+        map.put("cust_id", custId);
+        map.put("worker_id", workId);
+        new BaseTask<CarePlanEntity>(mContext, RetroFactory.getJacksonService(mContext).addCarePlan(map))
+                .handleResponse(responseListener);
+    }
+
+    public void updateCarePlan(String planId, String custId, String workId, String week, String time, int[] items) {
+        Map<String, String> map = new HashMap<>();
+        map.put("cust_id", custId);
+        map.put("worker_id", workId);
+        new BaseTask<CarePlanEntity>(mContext, RetroFactory.getJacksonService(mContext).updateCarePlan(map))
+                .handleResponse(responseListener);
+    }
+
+    public void delCarePlan(String planId) {
+        Map<String, String> map = new HashMap<>();
+        new BaseTask<CarePlanEntity>(mContext, RetroFactory.getJacksonService(mContext).delCarePlan(map))
                 .handleResponse(responseListener);
     }
 }

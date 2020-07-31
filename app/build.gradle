@@ -28,10 +28,11 @@ android {
                 arguments = [ moduleName : project.getName() ]
             }
         }
+
     }
 
     signingConfigs {
-        if (isNeedPackage.toBoolean()) {
+        /*if (isNeedPackage.toBoolean()) {
             release {
                 storeFile file(app_release.storeFile)
                 storePassword app_release.storePassword
@@ -41,15 +42,20 @@ android {
         }
 
         release {
-            storeFile file('E:\\10_10_PRJSRC\\o4care_nurse\\app\\o4care_nurse.jks')
+            storeFile file("${rootDir}${File.separator}o4care.jks")
             storePassword 'o4care_nurse'
             keyAlias 'o4care_nurse'
             keyPassword 'o4care_nurse'
-        }
+        }*/
+        debug {
+            storeFile file("${rootDir}${File.separator}o4care_nurse.jks")
+            storePassword 'o4care_nurse'
+            keyAlias 'o4care_nurse'
+            keyPassword 'o4care_nurse'}
     }
 
     buildTypes {
-        release {
+        /*release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -68,13 +74,13 @@ android {
                 signingConfig signingConfigs.release
                 buildConfigField "String", "APP_ID_UMENG", '""'
             }
-        }
+        }*/
 
         debug {
-            debuggable true
+           /* debuggable true
             minifyEnabled false
-
-//            signingConfig signingConfigs.release
+*/
+            signingConfig signingConfigs.debug
             buildConfigField "String", "APP_ID_UMENG", '""'
         }
     }
@@ -87,6 +93,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 }
 
 dependencies {
@@ -164,4 +177,6 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'   //内存泄漏监测leak
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'   //内存泄漏监测leak
     testImplementation  'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'   //内存泄漏监测leak
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 }

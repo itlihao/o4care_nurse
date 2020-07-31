@@ -1,9 +1,12 @@
 package com.o4care.nurse.fragment.customer;
 
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.o4care.nurse.R;
 import com.o4care.nurse.adapter.CustomerInfoPhotoAdapter;
 import com.o4care.nurse.adapter.ServiceItemList2Adapter;
-import com.o4care.nurse.adapter.ServiceItemListAdapter;
 import com.o4care.nurse.api.CareApi;
 import com.o4care.nurse.bean.RecordDetail;
-import com.o4care.nurse.bean.ServiceItem;
 import com.o4care.nurse.fragment.BaseFragment;
 import com.o4care.nurse.net.BaseTask;
 import com.xuexiang.xpage.annotation.Page;
@@ -74,7 +75,8 @@ public class CustomerRecordDetailFragment extends BaseFragment {
         return null;
     }
 
-    /**`
+    /**
+     * `
      * 布局的资源id
      *
      * @return
@@ -89,18 +91,22 @@ public class CustomerRecordDetailFragment extends BaseFragment {
      */
     @Override
     protected void initViews() {
-        toolbar.setTitle("记录详情");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("记录详情");
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        setHasOptionsMenu(true);
+
         WidgetUtils.initRecyclerView(rvServiceItems, 1);
 
         rvServiceItems.setLayoutManager(new LinearLayoutManager(rvServiceItems.getContext()));
         rvServiceItems.setItemAnimator(new DefaultItemAnimator());
-        listSerivceItemAdapter = new ServiceItemList2Adapter( new ArrayList<>() );
+        listSerivceItemAdapter = new ServiceItemList2Adapter(new ArrayList<>());
         rvServiceItems.setAdapter(listSerivceItemAdapter);
 
         recyclerPhotos.setLayoutManager(new GridLayoutManager(recyclerPhotos.getContext(), 4));
@@ -108,6 +114,14 @@ public class CustomerRecordDetailFragment extends BaseFragment {
         recyclerPhotos.setAdapter(infoPhotoAdapter);
 
         getRecordDetial();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().finish();
+        }
+        return true;
     }
 
     private void getRecordDetial() {

@@ -1,23 +1,24 @@
 package com.o4care.nurse.activity;
 
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.widget.Toolbar;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+import com.o4care.nurse.R;
+import com.o4care.nurse.fragment.BaseFragment;
+import com.o4care.nurse.fragment.customer.CarePlanTimeFragment;
 import com.o4care.nurse.fragment.customer.CustomerInfoFragment;
-import com.o4care.nurse.fragment.customer.CustomerListFragment;
 import com.o4care.nurse.fragment.customer.CustomerPlanFragment;
 import com.o4care.nurse.fragment.customer.CustomerRecordFragment;
 import com.o4care.nurse.fragment.customer.CustomerTaskFragment;
-import com.o4care.nurse.fragment.map.MapFragment;
-import com.o4care.nurse.fragment.mine.MineFragment;
-import com.o4care.nurse.fragment.task.TaskFragment;
-import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xui.adapter.FragmentAdapter;
-import com.o4care.nurse.R;
-import com.o4care.nurse.fragment.BaseFragment;
 
 import butterknife.BindView;
 
@@ -35,10 +36,19 @@ public class CustomerActivity extends BaseActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         initViews();
         initListeners();
     }
@@ -51,6 +61,7 @@ public class CustomerActivity extends BaseActivity {
     protected void initViews() {
         String[] titles = new String[]{"任务", "计划", "记录", "信息"};
         toolbar.setTitle(titles[0]);
+
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getSupportFragmentManager());
         adapter.addFragment(new CustomerTaskFragment(), titles[0]);
@@ -72,11 +83,44 @@ public class CustomerActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                Log.e("Customer", String.valueOf(position));
+                if (position != 1) {
+                    item.setVisible(false);
+                } else {
+                    item.setVisible(true);
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int i) {
+
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+
+        item = menu.findItem(R.id.action_add);
+        item.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_add) {
+            Bundle params = new Bundle();
+            params.putString(CarePlanTimeFragment.KEY_EVENT_NAME, "123");
+            params.putString(CarePlanTimeFragment.KEY_EVENT_DATA, "12");
+            Intent intent = new Intent(CustomerActivity.this, CarePlanTimeActivity.class);
+            intent.putExtra("Params", params);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

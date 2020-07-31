@@ -9,6 +9,7 @@ public class Constants {
     public static final int RC_PICTURE_CROP = 56;
     public static final int RC_OPEN_CAMERA  = 76;
 
+    public static String[] week = new String[]{"周一", "周二", "周三", "周四", "周五", "周六", "周日",};
     public static class File {
 
         public static final String APK_SAVE_PATH = Environment.getExternalStorageDirectory() + "/Android/data/laixi/installpackage/";

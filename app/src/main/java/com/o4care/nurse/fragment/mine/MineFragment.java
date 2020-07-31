@@ -1,8 +1,11 @@
 package com.o4care.nurse.fragment.mine;
 
+import android.content.Intent;
+
 import com.o4care.nurse.fragment.BaseFragment;
 import com.o4care.nurse.fragment.AboutFragment;
 import com.o4care.nurse.R;
+import com.o4care.nurse.widget.UploadFilesActivity;
 import com.xuexiang.xaop.annotation.SingleClick;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -24,6 +27,11 @@ public class MineFragment extends BaseFragment implements SuperTextView.OnSuperT
     SuperTextView menuSettings;
     @BindView(R.id.menu_about)
     SuperTextView menuAbout;
+
+    @BindView(R.id.tv_action)
+    SuperTextView menuAction;
+    @BindView(R.id.tv_save)
+    SuperTextView menuSave;
 
     /**
      * @return 返回为 null意为不需要导航栏
@@ -55,6 +63,8 @@ public class MineFragment extends BaseFragment implements SuperTextView.OnSuperT
     protected void initListeners() {
         menuSettings.setOnSuperTextViewClickListener(this);
         menuAbout.setOnSuperTextViewClickListener(this);
+        menuAction.setOnSuperTextViewClickListener(this);
+        menuSave.setOnSuperTextViewClickListener(this);
     }
 
     @SingleClick
@@ -66,6 +76,12 @@ public class MineFragment extends BaseFragment implements SuperTextView.OnSuperT
                 break;
             case R.id.menu_about:
                 openNewPage(AboutFragment.class);
+                break;
+            case R.id.tv_action:
+                openNewPage(ExchangeTaskFragment.class);
+                break;
+            case R.id.tv_save:
+                startActivity(new Intent(getActivity(), UploadFilesActivity.class));
                 break;
             default:
                 break;

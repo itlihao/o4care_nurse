@@ -1,8 +1,10 @@
 package com.o4care.nurse.net;
 
 import com.o4care.nurse.bean.CarePlan;
+import com.o4care.nurse.bean.CarePlanEntity;
 import com.o4care.nurse.bean.CustomerInfo;
 import com.o4care.nurse.bean.CustomerInfoBean;
+import com.o4care.nurse.bean.Exchange;
 import com.o4care.nurse.bean.LoginBean;
 import com.o4care.nurse.bean.Record;
 import com.o4care.nurse.bean.RecordDetail;
@@ -11,11 +13,16 @@ import com.o4care.nurse.bean.ServiceItem;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 public interface RetrofitService {
@@ -66,4 +73,20 @@ public interface RetrofitService {
 
     @GET("care/plan")
     Call<BaseEntity<List<CarePlan>>> getCarePlan(@QueryMap Map<String, String> map);
+
+    @POST("care/plan/add")
+    Call<BaseEntity<CarePlanEntity>> addCarePlan(@QueryMap Map<String, String> map);
+
+    @DELETE("care/plan/delete")
+    Call<BaseEntity<CarePlanEntity>> delCarePlan(@QueryMap Map<String, String> map);
+
+    @POST("care/plan/update")
+    Call<BaseEntity<CarePlanEntity>> updateCarePlan(@QueryMap Map<String, String> map);
+
+    @GET("user/exchange")
+    Call<BaseEntity<List<Exchange>>> getExchange(@QueryMap Map<String, String> map);
+
+    @Multipart
+    @POST("upload/file")
+    Call<BaseEntity<RecordDetail>> uploadFile(@PartMap Map<String,String> params, @Part MultipartBody.Part file);
 }

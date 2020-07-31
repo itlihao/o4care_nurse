@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.o4care.nurse.fragment.BaseFragment;
+import com.o4care.nurse.R;
 import com.o4care.nurse.fragment.AboutFragment;
 import com.o4care.nurse.fragment.customer.CustomerListFragment;
-import com.o4care.nurse.fragment.mine.SettingsFragment;
 import com.o4care.nurse.fragment.map.MapFragment;
-import com.o4care.nurse.fragment.task.TaskFragment;
 import com.o4care.nurse.fragment.mine.MineFragment;
-import com.o4care.nurse.R;
+import com.o4care.nurse.fragment.mine.SettingsFragment;
+import com.o4care.nurse.fragment.task.TaskFragment;
 import com.o4care.nurse.utils.XToastUtils;
 import com.xuexiang.xaop.annotation.SingleClick;
 import com.xuexiang.xui.adapter.FragmentAdapter;
@@ -36,7 +36,6 @@ import butterknife.BindView;
 
 /**
  * 程序主页面
- *
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, BottomNavigationView.OnNavigationItemSelectedListener, ClickUtils.OnClick2ExitListener, Toolbar.OnMenuItemClickListener {
     @BindView(R.id.toolbar)
@@ -78,13 +77,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initHeader();
 
         //主页内容填充
-        BaseFragment[] fragments = new BaseFragment[]{
-            new CustomerListFragment(),
-            new TaskFragment(),
-            new MapFragment(),
-            new MineFragment()
+        Fragment[] fragments = new Fragment[]{
+                new CustomerListFragment(),
+                new TaskFragment(),
+                new MapFragment(),
+                new MineFragment()
         };
-        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getSupportFragmentManager(), fragments);
+        FragmentAdapter<Fragment> adapter = new FragmentAdapter<>(getSupportFragmentManager(), fragments);
         viewPager.setOffscreenPageLimit(mTitles.length - 1);
         viewPager.setAdapter(adapter);
     }
@@ -92,7 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void initHeader() {
         navView.setItemIconTintList(null);
         View headerView = navView.getHeaderView(0);
-        LinearLayout navHeader   = headerView.findViewById(R.id.nav_header);
+        LinearLayout navHeader = headerView.findViewById(R.id.nav_header);
         RadiusImageView ivAvatar = headerView.findViewById(R.id.iv_avatar);
         TextView tvAvatar = headerView.findViewById(R.id.tv_avatar);
         TextView tvSign = headerView.findViewById(R.id.tv_sign);
@@ -154,10 +153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
-            default:
-                break;
-        }
+
         return false;
     }
 
@@ -193,6 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     //================Navigation================//
+
     /**
      * 底部导航栏点击事件
      *
