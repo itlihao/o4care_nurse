@@ -2,6 +2,7 @@ package com.o4care.nurse.fragment.task;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.haibin.calendarview.Calendar;
+import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
+import com.o4care.nurse.activity.CustomerActivity;
 import com.o4care.nurse.adapter.CustomerListAdapter;
 import com.o4care.nurse.api.WorkerApi;
 import com.o4care.nurse.bean.CustomerInfo;
@@ -21,8 +24,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
+import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
+import com.xuexiang.xutil.app.ActivityUtils;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.ArrayList;
@@ -41,9 +46,11 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rv_task)
-    SwipeRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.calendarView)
     CalendarView calendarView;
+    @BindView(R.id.calendarLayout)
+    CalendarLayout calendarLayout;
 
     private CustomerListAdapter listCustomerAdapter;
     List<CustomerInfo> listCust;
@@ -109,6 +116,12 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
 
     @Override
     protected void initListeners() {
+        listCustomerAdapter.setOnItemClickListener(new RecyclerViewHolder.OnItemClickListener<CustomerInfo>() {
+            @Override
+            public void onItemClick(View itemView, CustomerInfo item, int position) {
+                ActivityUtils.startActivity(CustomerActivity.class, "worker_id", 12);
+            }
+        });
 
         calendarView.setOnCalendarSelectListener(this);
         refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -141,11 +154,11 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
-        /*if (isClick) {
+        if (isClick) {
             if (calendarLayout.isExpand()) {
                 calendarLayout.shrink();
             }
-        }*/
+        }
     }
 
     void getCustomerList() {
@@ -155,6 +168,11 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
             public void onSuccess(int flag, List<CustomerInfo> listCustNet) {
                 Log.d(TAG, "onSucess data");
                 listCust = listCustNet;
+                listCust.addAll(listCustNet);
+                listCust.addAll(listCustNet);
+                listCust.addAll(listCustNet);
+                listCust.addAll(listCustNet);
+                listCust.addAll(listCustNet);
                 for (int i = 0; i < listCustNet.size(); i++) {
                     Log.d(TAG, listCustNet.get(i).getAddress());
                     Log.d(TAG, String.valueOf(listCustNet.get(i).getDoneHourMon()));

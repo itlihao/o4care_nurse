@@ -13,7 +13,7 @@ import retrofit2.http.Url;
  */
 
 public interface Api {
-    String BASE_URL = "http://10.138.20.63/UploadTest/";
+    String BASE_URL = "http://192.168.3.2/uploadTest/";
 
 
 }

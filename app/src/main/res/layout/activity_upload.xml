@@ -24,13 +24,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/tv_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_margin="8dp"
-        android:text="upload" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_photos"

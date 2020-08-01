@@ -30,7 +30,7 @@ public class CarePlan {
     private int week;
     private String time;
     private List<ItemsEntity> items;
-    private int plan_id;
+    private String plan_id;
 
     public void setWeek(int week) {
         this.week = week;
@@ -44,7 +44,7 @@ public class CarePlan {
         this.items = items;
     }
 
-    public void setPlan_id(int plan_id) {
+    public void setPlan_id(String plan_id) {
         this.plan_id = plan_id;
     }
 
@@ -60,7 +60,7 @@ public class CarePlan {
         return items;
     }
 
-    public int getPlan_id() {
+    public String getPlan_id() {
         return plan_id;
     }
 

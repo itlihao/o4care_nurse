@@ -94,6 +94,8 @@ public class RetroFactory {
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/allitems").setSuccessDataFile("service_items.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/customer/info").setSuccessDataFile("customer_info.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan/add").setSuccessDataFile("care_plan_entity.json"));
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan/delete").setSuccessDataFile("care_plan_entity.json"));
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan/update").setSuccessDataFile("care_plan_entity.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan").setSuccessDataFile("care_plan.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/records/detail").setSuccessDataFile("care_records_detail.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/record").setSuccessDataFile("care_record.json"));

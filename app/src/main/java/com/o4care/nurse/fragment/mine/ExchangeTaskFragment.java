@@ -8,9 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.o4care.nurse.adapter.ExchangeAdapter;
 import com.o4care.nurse.api.WorkerApi;
 import com.o4care.nurse.bean.CustomerInfoBean;
 import com.o4care.nurse.bean.Exchange;
@@ -25,6 +28,7 @@ import com.xuexiang.xui.widget.actionbar.TitleBar;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,7 +46,10 @@ public class ExchangeTaskFragment extends BaseFragment {
     Toolbar toolbar;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+    @BindView(R.id.recycle_exchange)
+    RecyclerView recyclerView;
 
+    private ExchangeAdapter exchangeAdapter;
 
     /**
      * @return 返回为 null意为不需要导航栏
@@ -77,6 +84,10 @@ public class ExchangeTaskFragment extends BaseFragment {
         tabLayout.addTab(tabLayout.newTab().setText("我代班的"));
 
         getExchange(0);
+
+        exchangeAdapter = new ExchangeAdapter(new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(exchangeAdapter);
     }
 
     private View.OnClickListener onClickListener = v -> getActivity().finish();
@@ -95,7 +106,7 @@ public class ExchangeTaskFragment extends BaseFragment {
                 for (int i = 0; i < exchanges.size(); i++) {
                     Log.d(TAG, exchanges.get(i).toString());
                 }
-
+                exchangeAdapter.refresh(exchanges);
             }
 
             @Override

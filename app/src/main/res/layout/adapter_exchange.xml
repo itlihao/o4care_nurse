@@ -3,8 +3,9 @@
     android:id="@+id/card_list_customer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:background="@color/white"
+    android:gravity="center_vertical"
+    android:layout_marginTop="10dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,9 +16,9 @@
             android:id="@+id/tv_start_time"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:text="时间: 2020-05-01 08:00"
+            android:layout_marginStart="20dp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:text="时间: 2020-05-01 08:00" />
 
         <TextView
             android:id="@+id/tv_ststus"
@@ -25,9 +26,9 @@
             android:layout_height="28dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
-            android:text="已完成"
             android:gravity="center_vertical"
-            android:textColor="#FE6D4B"/>
+            android:text="已完成"
+            android:textColor="#FE6D4B" />
 
     </RelativeLayout>
 
@@ -35,30 +36,84 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="张三"
-            android:textSize="30sp"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_doworker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="张三"
+                android:textSize="26sp" />
+        </RelativeLayout>
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:text="张三"
-            android:textSize="30sp"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="替班" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_plan_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="60分钟" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_planworker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="王五"
+                android:textSize="26sp" />
+        </RelativeLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_care_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="张春芳" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:text="金华路25号" />
+
+    </RelativeLayout>
 
 </LinearLayout>

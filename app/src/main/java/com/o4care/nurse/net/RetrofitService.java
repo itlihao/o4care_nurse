@@ -22,6 +22,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -86,7 +87,9 @@ public interface RetrofitService {
     @GET("care/plan/add")
     Call<BaseEntity<CarePlanEntity>> addCarePlan(@QueryMap Map<String, String> map);
 
-    @DELETE("care/plan/delete")
+    /*@HTTP(method = "DELETE",path = "care/plan/delete",hasBody = true)
+    Call<BaseEntity<CarePlanEntity>> delCarePlan(@Body Map<String, String> map);*/
+    @GET("care/plan/delete")
     Call<BaseEntity<CarePlanEntity>> delCarePlan(@QueryMap Map<String, String> map);
 
     @POST("care/plan/update")

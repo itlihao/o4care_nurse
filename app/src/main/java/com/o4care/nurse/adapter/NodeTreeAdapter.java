@@ -13,9 +13,9 @@ import java.util.List;
 
 public class NodeTreeAdapter extends BaseNodeAdapter {
 
-    public NodeTreeAdapter() {
+    public NodeTreeAdapter(FirstProvider firstProvider) {
         super();
-        addNodeProvider(new FirstProvider());
+        addNodeProvider(firstProvider);
         addNodeProvider(new SecondProvider());
     }
 

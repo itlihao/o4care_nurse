@@ -114,6 +114,8 @@ public class CustomerActivity extends BaseActivity {
             Bundle params = new Bundle();
             params.putString(CarePlanTimeFragment.KEY_EVENT_NAME, "123");
             params.putString(CarePlanTimeFragment.KEY_EVENT_DATA, "12");
+            // type = 2,新增计划
+            params.putInt(CarePlanTimeFragment.KEY_JUMP_TYPE, 2);
             Intent intent = new Intent(CustomerActivity.this, CarePlanTimeActivity.class);
             intent.putExtra("Params", params);
             startActivity(intent);

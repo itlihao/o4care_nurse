@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -75,6 +76,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         toolbar.setOnMenuItemClickListener(this);
 
         initHeader();
+
+        Toast.makeText(this, "hello world", Toast.LENGTH_SHORT).show();
 
         //主页内容填充
         Fragment[] fragments = new Fragment[]{

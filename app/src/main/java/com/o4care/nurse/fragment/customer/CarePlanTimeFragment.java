@@ -49,6 +49,7 @@ public class CarePlanTimeFragment extends BaseFragment {
 
     public final static String KEY_EVENT_NAME = "event_name";
     public final static String KEY_EVENT_DATA = "event_data";
+    public final static String KEY_JUMP_TYPE = "jump_type";
     public final static String KEY_EVENT_DATA_TIME = "event_data_time";
 
     @AutoWired(name = KEY_EVENT_NAME)

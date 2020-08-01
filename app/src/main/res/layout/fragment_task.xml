@@ -24,8 +24,8 @@
             android:layout_height="match_parent"
             android:background="@color/xui_config_color_white"
             android:orientation="vertical"
-            app:calendar_content_view_id="@+id/recycler_view"
-            app:default_status="shrink">
+            app:calendar_content_view_id="@+id/rv_task"
+            app:calendar_show_mode="both_month_week_view">
             <!-- app:calendar_show_mode="both_month_week_view"
             app:default_status="shrink"-->
 
@@ -53,7 +53,7 @@
                 app:week_text_size="14sp"
                 app:week_view="com.o4care.nurse.widget.calendar.SimpleWeekView" />
 
-            <com.yanzhenjie.recyclerview.SwipeRecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_task"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

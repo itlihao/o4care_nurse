@@ -72,6 +72,7 @@ public class CareApi extends BaseApi {
 
     public void delCarePlan(String planId) {
         Map<String, String> map = new HashMap<>();
+        map.put("plan_id", planId);
         new BaseTask<CarePlanEntity>(mContext, RetroFactory.getJacksonService(mContext).delCarePlan(map))
                 .handleResponse(responseListener);
     }

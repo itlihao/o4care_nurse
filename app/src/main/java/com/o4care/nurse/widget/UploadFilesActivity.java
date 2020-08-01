@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.o4care.nurse.activity.BaseActivity;
+import com.o4care.nurse.activity.CareItemsActivity;
 import com.o4care.nurse.adapter.ImageListAdapter;
 import com.o4care.nurse.bean.ImageBean;
+import com.o4care.nurse.fragment.customer.CarePlanTimeFragment;
 import com.o4care.nurse.fragment.customer.CustomerInfoFragment;
 import com.o4care.nurse.fragment.customer.CustomerListFragment;
 import com.o4care.nurse.fragment.customer.CustomerPlanFragment;
@@ -62,9 +65,6 @@ public class UploadFilesActivity extends BaseActivity {
     @BindView(R.id.rv_photos)
     RecyclerView recyclerView;
 
-    @BindView(R.id.tv_upload)
-    Button upload;
-
     private ImageListAdapter listAdapter;
 
     private List<ImageBean> imageList;
@@ -75,17 +75,17 @@ public class UploadFilesActivity extends BaseActivity {
         initViews();
         initListeners();
 
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        toolbar.inflateMenu(R.menu.menu_upload);
+        toolbar.setNavigationIcon(R.drawable.ic_navigation_back_white);
+        // 设置 NavigationIcon 点击事件
+        toolbar.setNavigationOnClickListener(onClickListener);
+        toolbar.setOnMenuItemClickListener(menuItemClickListener);
+
         toolbar.setTitle("上传文件");
 
         imageList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listAdapter = new ImageListAdapter(new ArrayList<>(), this);
+        listAdapter = new ImageListAdapter(this, imageList);
         recyclerView.setAdapter(listAdapter);
 
         getpic();
@@ -101,44 +101,46 @@ public class UploadFilesActivity extends BaseActivity {
     }
 
     protected void initListeners() {
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getData();
-            }
-        });
+
     }
 
-    private void getData() {
+    private void doUpload() {
         String url = "http://192.168.3.2/uploadTest/";
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         ThreadPoolExecutor pool = (ThreadPoolExecutor) executor;
 
+        Log.d(TAG, "上传任务开始");
         for (int i = 0; i < imageList.size(); i++) {
-            pool.execute(new uploadTask(url, new File(imageList.get(i).getImagePath())));
+            pool.execute(new uploadTask(url, i));
         }
+
     }
 
     class uploadTask implements Runnable {
         String url;
         File file;
+        int index;
+        ImageBean imageBean;
 
-        uploadTask(String url, File file) {
+        uploadTask(String url, int i) {
             this.url = url;
-            this.file = file;
+            this.index = i;
+            file = new File(imageList.get(i).getImagePath());
+            imageBean = imageList.get(i);
         }
 
         @Override
         public void run() {
+            Log.d(TAG, "任务队列开始开始");
             RetrofitClient.getInstance()
                     .upLoadFile(url, file, new FileUploadObserver<ResponseBody>() {
                         @Override
                         public void onUpLoadSuccess(ResponseBody responseBody) {
                             Toast.makeText(UploadFilesActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
                             try {
-                                Log.d("上传进度", responseBody.string());
+                                Log.d(TAG, "上传进度,body" + responseBody.string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -151,7 +153,17 @@ public class UploadFilesActivity extends BaseActivity {
 
                         @Override
                         public void onProgress(int progress) {
-                            Log.d("上传进度", file.getName() + "  " + progress);
+                            Log.d(TAG, "上传进度 " + file.getName() + "  " + progress);
+                            imageBean.setProgress(progress);
+                            imageList.set(index, imageBean);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    listAdapter.setNewData(imageList);
+                                    listAdapter.notifyDataSetChanged();
+                                }
+                            });
+
                         }
                     });
         }
@@ -177,7 +189,11 @@ public class UploadFilesActivity extends BaseActivity {
                         ImageBean imageBean = new ImageBean();
                         String displayName = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
                         String imgPath = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                        Log.i(TAG, "-->" + displayName + " path " + imgPath);
+                        long imgSize = mCursor.getLong(mCursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+                        Log.i(TAG, "-->" + displayName + " path " + imgPath +
+                                " size " + imgSize);
+
+                        imageBean.setImgSize(imgSize);
                         imageBean.setImageName(displayName);
                         imageBean.setImagePath(imgPath);
                         list.add(imageBean);
@@ -191,13 +207,22 @@ public class UploadFilesActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        listAdapter.refresh(imageList);
+                        listAdapter.setNewData(imageList);
+                        listAdapter.notifyDataSetChanged();
                     }
                 });
 
             }
         }).start();
 
-
     }
+
+    private View.OnClickListener onClickListener = v -> finish();
+
+    Toolbar.OnMenuItemClickListener menuItemClickListener = item -> {
+        if (item.getItemId() == R.id.action_upload) {
+            doUpload();
+        }
+        return false;
+    };
 }
