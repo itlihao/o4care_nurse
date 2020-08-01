@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@color/xui_config_color_white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <com.zyyoona7.wheel.WheelView
+            android:id="@+id/wv_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:wv_dividerColor="#30999999"
+            app:wv_dividerHeight="1dp"
+            app:wv_lineSpacing="11dp"
+            app:wv_selectedItemPosition="2"
+            app:wv_selectedItemTextColor="#333"
+            app:wv_showDivider="true"
+            app:wv_textAlign="center"
+            app:wv_textSize="20sp"
+            app:wv_normalItemTextColor="#999"
+            app:wv_cyclic="true"
+            app:wv_curved="false"
+            app:wv_visibleItems="7" />
+
+        <com.zyyoona7.wheel.WheelView
+            android:id="@+id/wv_hour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:wv_dividerColor="#30999999"
+            app:wv_dividerHeight="1dp"
+            app:wv_lineSpacing="11dp"
+            app:wv_selectedItemPosition="2"
+            app:wv_selectedItemTextColor="#333"
+            app:wv_showDivider="true"
+            app:wv_textAlign="center"
+            app:wv_textSize="20sp"
+            app:wv_normalItemTextColor="#999"
+            app:wv_cyclic="true"
+            app:wv_curved="false"
+            app:wv_visibleItems="7" />
+
+        <com.zyyoona7.wheel.WheelView
+            android:id="@+id/wv_min"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:wv_dividerColor="#30999999"
+            app:wv_dividerHeight="1dp"
+            app:wv_lineSpacing="11dp"
+            app:wv_selectedItemPosition="2"
+            app:wv_selectedItemTextColor="#333"
+            app:wv_showDivider="true"
+            app:wv_textAlign="center"
+            app:wv_textSize="20sp"
+            app:wv_normalItemTextColor="#999"
+            app:wv_cyclic="true"
+            app:wv_curved="false"
+            app:wv_visibleItems="7" />
+    </LinearLayout>
 
 </LinearLayout>

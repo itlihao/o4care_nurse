@@ -18,6 +18,7 @@ import com.o4care.nurse.fragment.customer.CustomerInfoFragment;
 import com.o4care.nurse.fragment.customer.CustomerPlanFragment;
 import com.o4care.nurse.fragment.customer.CustomerRecordFragment;
 import com.o4care.nurse.fragment.customer.CustomerTaskFragment;
+import com.o4care.nurse.utils.XToastUtils;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 
 import butterknife.BindView;

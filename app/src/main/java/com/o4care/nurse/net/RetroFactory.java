@@ -89,9 +89,11 @@ public class RetroFactory {
     private static OkHttpClient getClient() {
         MockApiSuite suite = new MockApiSuite("customer");
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/user/exchange").setSuccessDataFile("exchange.json"));
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/items").setSuccessDataFile("care_item.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/worker/allcust").setSuccessDataFile("customer.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/allitems").setSuccessDataFile("service_items.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/customer/info").setSuccessDataFile("customer_info.json"));
+        suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan/add").setSuccessDataFile("care_plan_entity.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/plan").setSuccessDataFile("care_plan.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/records/detail").setSuccessDataFile("care_records_detail.json"));
         suite.addMockApi(new StandardMockApi(MockHttpMethod.GET, "/api/care/record").setSuccessDataFile("care_record.json"));

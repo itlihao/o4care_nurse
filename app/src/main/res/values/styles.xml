@@ -52,4 +52,8 @@
         <!--背景是否模糊显示-->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/radiobutton_shape</item>
+        </style>
 </resources>

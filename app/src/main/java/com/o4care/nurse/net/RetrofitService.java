@@ -1,5 +1,6 @@
 package com.o4care.nurse.net;
 
+import com.o4care.nurse.bean.CareItem;
 import com.o4care.nurse.bean.CarePlan;
 import com.o4care.nurse.bean.CarePlanEntity;
 import com.o4care.nurse.bean.CustomerInfo;
@@ -18,6 +19,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -74,7 +77,13 @@ public interface RetrofitService {
     @GET("care/plan")
     Call<BaseEntity<List<CarePlan>>> getCarePlan(@QueryMap Map<String, String> map);
 
+    @GET("care/items")
+    Call<BaseEntity<List<CareItem>>> getCareItems(@QueryMap Map<String, String> map);
+
+    /*@FormUrlEncoded
     @POST("care/plan/add")
+    Call<BaseEntity<CarePlanEntity>> addCarePlan(@FieldMap Map<String, String> map);*/
+    @GET("care/plan/add")
     Call<BaseEntity<CarePlanEntity>> addCarePlan(@QueryMap Map<String, String> map);
 
     @DELETE("care/plan/delete")

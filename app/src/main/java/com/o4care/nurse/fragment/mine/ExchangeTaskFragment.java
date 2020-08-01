@@ -2,6 +2,7 @@ package com.o4care.nurse.fragment.mine;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -67,14 +68,9 @@ public class ExchangeTaskFragment extends BaseFragment {
     @Override
     protected void initViews() {
         toolbar.setTitle("换班记录");
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        setHasOptionsMenu(true);
+        toolbar.setNavigationIcon(R.drawable.ic_navigation_back_white);
+        // 设置 NavigationIcon 点击事件
+        toolbar.setNavigationOnClickListener(onClickListener);
 
         tabLayout.addTab(tabLayout.newTab().setText("全部记录"));
         tabLayout.addTab(tabLayout.newTab().setText("我申请的"));
@@ -83,13 +79,8 @@ public class ExchangeTaskFragment extends BaseFragment {
         getExchange(0);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getActivity().finish();
-        }
-        return true;
-    }
+    private View.OnClickListener onClickListener = v -> getActivity().finish();
+
 
     @Override
     protected void initListeners() {

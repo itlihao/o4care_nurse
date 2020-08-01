@@ -2,6 +2,7 @@ package com.o4care.nurse.api;
 
 import android.content.Context;
 
+import com.o4care.nurse.bean.CareItem;
 import com.o4care.nurse.bean.CarePlan;
 import com.o4care.nurse.bean.CarePlanEntity;
 import com.o4care.nurse.bean.Record;
@@ -53,7 +54,7 @@ public class CareApi extends BaseApi {
                 .handleResponse(responseListener);
     }
 
-    public void addCarePlan(String custId, String workId, String week, String time, int[] items) {
+    public void addCarePlan(String custId, String workId, String week, String time, String[] items) {
         Map<String, String> map = new HashMap<>();
         map.put("cust_id", custId);
         map.put("worker_id", workId);
@@ -72,6 +73,13 @@ public class CareApi extends BaseApi {
     public void delCarePlan(String planId) {
         Map<String, String> map = new HashMap<>();
         new BaseTask<CarePlanEntity>(mContext, RetroFactory.getJacksonService(mContext).delCarePlan(map))
+                .handleResponse(responseListener);
+    }
+
+    public void getCareItems(String workId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("worker_id", workId);
+        new BaseTask<List<CareItem>>(mContext, RetroFactory.getJacksonService(mContext).getCareItems(map))
                 .handleResponse(responseListener);
     }
 }
