@@ -5,64 +5,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <com.haibin.calendarview.CalendarLayout
+        android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableAutoLoadMore="false"
-        app:srlEnableLoadMore="true"
-        app:srlEnableNestedScrolling="true">
+        android:background="@color/xui_config_color_white"
+        android:orientation="vertical"
+        app:calendar_content_view_id="@+id/rv_task"
+        app:calendar_show_mode="both_month_week_view">
+        <!-- app:calendar_show_mode="both_month_week_view"
+        app:default_status="shrink"-->
 
-        <com.scwang.smartrefresh.header.MaterialHeader
+        <com.haibin.calendarview.CalendarView
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:background="@color/xui_config_color_white"
+            app:calendar_height="35dp"
+            app:calendar_padding="10dp"
+            app:current_month_lunar_text_color="#CFCFCF"
+            app:current_month_text_color="@color/xui_config_color_primary_text"
+            app:day_text_size="14sp"
+            app:min_year="2016"
+            app:month_view="com.o4care.nurse.widget.calendar.SimpleMonthView"
+            app:other_month_text_color="#e1e1e1"
+            app:scheme_text_color="?attr/xui_config_color_title_text"
+            app:scheme_theme_color="?attr/xui_config_color_title_text"
+            app:selected_text_color="@color/xui_config_color_white"
+            app:selected_theme_color="?attr/colorAccent"
+            app:week_background="@color/xui_config_color_white"
+            app:week_bar_height="46dp"
+            app:week_line_margin="16dp"
+            app:week_text_color="?attr/xui_config_color_title_text"
+            app:week_text_size="14sp"
+            app:week_view="com.o4care.nurse.widget.calendar.SimpleWeekView" />
 
-        <com.haibin.calendarview.CalendarLayout
-            android:id="@+id/calendarLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_task"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/xui_config_color_white"
-            android:orientation="vertical"
-            app:calendar_content_view_id="@+id/rv_task"
-            app:calendar_show_mode="both_month_week_view">
-            <!-- app:calendar_show_mode="both_month_week_view"
-            app:default_status="shrink"-->
-
-            <com.haibin.calendarview.CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/xui_config_color_white"
-                app:calendar_height="35dp"
-                app:calendar_padding="10dp"
-                app:current_month_lunar_text_color="#CFCFCF"
-                app:current_month_text_color="@color/xui_config_color_primary_text"
-                app:day_text_size="14sp"
-                app:min_year="2016"
-                app:month_view="com.o4care.nurse.widget.calendar.SimpleMonthView"
-                app:other_month_text_color="#e1e1e1"
-                app:scheme_text_color="?attr/xui_config_color_title_text"
-                app:scheme_theme_color="?attr/xui_config_color_title_text"
-                app:selected_text_color="@color/xui_config_color_white"
-                app:selected_theme_color="?attr/colorAccent"
-                app:week_background="@color/xui_config_color_white"
-                app:week_bar_height="46dp"
-                app:week_line_margin="16dp"
-                app:week_text_color="?attr/xui_config_color_title_text"
-                app:week_text_size="14sp"
-                app:week_view="com.o4care.nurse.widget.calendar.SimpleWeekView" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_task"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F2F2F2"
-                android:overScrollMode="never" />
-        </com.haibin.calendarview.CalendarLayout>
-
-        <com.o4care.nurse.widget.MaterialFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:background="#F2F2F2"
+            android:overScrollMode="never" />
+    </com.haibin.calendarview.CalendarLayout>
 </LinearLayout>

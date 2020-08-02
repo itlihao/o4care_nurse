@@ -43,8 +43,8 @@ import butterknife.BindView;
 @Page(anim = CoreAnim.none)
 public class TaskFragment extends BaseFragment implements CalendarView.OnCalendarSelectListener {
     private String TAG = "TaskFragment";
-    @BindView(R.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
+    /*@BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;*/
     @BindView(R.id.rv_task)
     RecyclerView recyclerView;
     @BindView(R.id.calendarView)
@@ -124,7 +124,7 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
         });
 
         calendarView.setOnCalendarSelectListener(this);
-        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        /*refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refreshLayout.getLayout().postDelayed(() -> {
@@ -144,7 +144,7 @@ public class TaskFragment extends BaseFragment implements CalendarView.OnCalenda
 
             }
         });
-        refreshLayout.autoRefresh();
+        refreshLayout.autoRefresh();*/
     }
 
     @Override

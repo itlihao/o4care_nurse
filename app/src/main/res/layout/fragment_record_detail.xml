@@ -255,6 +255,7 @@
                 android:text="音频文件" />
 
             <ImageView
+                android:id="@+id/iv_audio"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
@@ -279,6 +280,7 @@
                 android:text="视频文件" />
 
             <ImageView
+                android:id="@+id/iv_video"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
@@ -311,12 +313,11 @@
                 android:overScrollMode="never" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:background="@color/white" >
 
             <TextView
                 style="@style/TextStyle.Title"
@@ -325,7 +326,18 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="客户签字" />
-        </LinearLayout>
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/riv_signa"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:background="@mipmap/ic_launcher"
+                android:gravity="center_vertical" />
+            
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

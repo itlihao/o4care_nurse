@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class FirstProvider extends BaseNodeProvider {
+    private int curExpandId = 0;
 
     @Override
     public int getItemViewType() {
@@ -105,25 +106,13 @@ public class FirstProvider extends BaseNodeProvider {
 
     @Override
     public void onClick(@NotNull BaseViewHolder helper, @NotNull View view, BaseNode data, int position) {
-        // 这里使用payload进行增量刷新（避免整个item刷新导致的闪烁，不自然）
-        getAdapter().expandOrCollapse(position, true, true, NodeTreeAdapter.EXPAND_COLLAPSE_PAYLOAD);
-    }
-
-    /*@Override
-    public void onClick(View v) {
-        int position = (int) v.getTag();      //getTag()获取数据
-        if (mOnItemClickListener != null) {
-            switch (v.getId()) {
-                case R.id.iv_edit:
-                    mOnItemClickListener.onItemClick(v, position, ViewName.EDIT);
-                    break;
-                case R.id.iv_del:
-                    mOnItemClickListener.onItemClick(v, position, ViewName.DEL);
-                    break;
-                default:
-                    break;
-            }
+        if (curExpandId != position) {
+            curExpandId = position;
+        } else {
+            getAdapter().expandOrCollapse(position, true, true, NodeTreeAdapter.EXPAND_COLLAPSE_PAYLOAD);
+            return;
         }
-
-    }*/
+        // 这里使用payload进行增量刷新（避免整个item刷新导致的闪烁，不自然）
+        getAdapter().expandAndCollapseOther(position, true, true, true);
+    }
 }

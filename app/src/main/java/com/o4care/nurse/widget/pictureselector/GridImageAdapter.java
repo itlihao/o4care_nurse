@@ -55,6 +55,10 @@ public class GridImageAdapter extends
     private LayoutInflater mInflater;
     private List<LocalMedia> list = new ArrayList<>();
     private int selectMax = 9;
+
+    private boolean isShow = false;
+
+
     /**
      * 点击添加图片跳转
      */
@@ -120,7 +124,11 @@ public class GridImageAdapter extends
     @Override
     public int getItemCount() {
         if (list.size() < selectMax) {
-            return list.size() + 1;
+            if (isShow) {
+                return list.size();
+            } else {
+                return list.size() + 1;
+            }
         } else {
             return list.size();
         }
@@ -157,95 +165,104 @@ public class GridImageAdapter extends
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         //少于8张，显示继续添加的图标
-        if (getItemViewType(position) == TYPE_CAMERA) {
-            viewHolder.mImg.setImageResource(R.drawable.ic_add_image);
-            viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
-            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
+        if (isShow) {
+            viewHolder.mIvDel.setVisibility(View.GONE);
+            setView(viewHolder, position);
         } else {
-            viewHolder.mIvDel.setVisibility(View.VISIBLE);
-            viewHolder.mIvDel.setOnClickListener(view -> {
-                int index = viewHolder.getAdapterPosition();
-                // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
-                // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
-                if (index != RecyclerView.NO_POSITION && list.size() > index) {
-                    list.remove(index);
-                    notifyItemRemoved(index);
-                    notifyItemRangeChanged(index, list.size());
-                }
+            if (getItemViewType(position) == TYPE_CAMERA) {
+                viewHolder.mImg.setImageResource(R.drawable.ic_add_image);
+                viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
+                viewHolder.mIvDel.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.mIvDel.setVisibility(View.VISIBLE);
+                setView(viewHolder, position);
+            }
+        }
+    }
+
+    private void setView(final ViewHolder viewHolder, final int position) {
+        viewHolder.mIvDel.setOnClickListener(view -> {
+            int index = viewHolder.getAdapterPosition();
+            // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
+            // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
+            if (index != RecyclerView.NO_POSITION && list.size() > index) {
+                list.remove(index);
+                notifyItemRemoved(index);
+                notifyItemRangeChanged(index, list.size());
+            }
+        });
+        LocalMedia media = list.get(position);
+        if (media == null || TextUtils.isEmpty(media.getPath())) {
+            return;
+        }
+        int chooseModel = media.getChooseModel();
+        String path;
+        if (media.isCut() && !media.isCompressed()) {
+            // 裁剪过
+            path = media.getCutPath();
+        } else if (media.isCompressed() || (media.isCut() && media.isCompressed())) {
+            // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+            path = media.getCompressPath();
+        } else {
+            // 原图
+            path = media.getPath();
+        }
+
+        Log.i(TAG, "原图地址::" + media.getPath());
+
+        if (media.isCut()) {
+            Log.i(TAG, "裁剪地址::" + media.getCutPath());
+        }
+        if (media.isCompressed()) {
+            Log.i(TAG, "压缩地址::" + media.getCompressPath());
+            Log.i(TAG, "压缩后文件大小::" + new File(media.getCompressPath()).length() / 1024 + "k");
+        }
+        if (!TextUtils.isEmpty(media.getAndroidQToPath())) {
+            Log.i(TAG, "Android Q特有地址::" + media.getAndroidQToPath());
+        }
+        if (media.isOriginal()) {
+            Log.i(TAG, "是否开启原图功能::" + true);
+            Log.i(TAG, "开启原图功能后地址::" + media.getOriginalPath());
+        }
+
+        long duration = media.getDuration();
+        viewHolder.tvDuration.setVisibility(PictureMimeType.isHasVideo(media.getMimeType())
+                ? View.VISIBLE : View.GONE);
+        if (chooseModel == PictureMimeType.ofAudio()) {
+            viewHolder.tvDuration.setVisibility(View.VISIBLE);
+            viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
+                    (R.drawable.picture_icon_audio, 0, 0, 0);
+
+        } else {
+            viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
+                    (R.drawable.picture_icon_video, 0, 0, 0);
+        }
+        viewHolder.tvDuration.setText(DateUtils.formatDurationTime(duration));
+        if (chooseModel == PictureMimeType.ofAudio()) {
+            viewHolder.mImg.setImageResource(R.drawable.picture_audio_placeholder);
+        } else {
+            Glide.with(viewHolder.itemView.getContext())
+                    .load(PictureMimeType.isContent(path) && !media.isCut() && !media.isCompressed() ? Uri.parse(path)
+                            : path)
+                    .centerCrop()
+                    .placeholder(R.color.app_color_f6)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(viewHolder.mImg);
+        }
+        //itemView 的点击事件
+        if (mItemClickListener != null) {
+            viewHolder.itemView.setOnClickListener(v -> {
+                int adapterPosition = viewHolder.getAdapterPosition();
+                mItemClickListener.onItemClick(v, adapterPosition);
             });
-            LocalMedia media = list.get(position);
-            if (media == null || TextUtils.isEmpty(media.getPath())) {
-                return;
-            }
-            int chooseModel = media.getChooseModel();
-            String path;
-            if (media.isCut() && !media.isCompressed()) {
-                // 裁剪过
-                path = media.getCutPath();
-            } else if (media.isCompressed() || (media.isCut() && media.isCompressed())) {
-                // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
-                path = media.getCompressPath();
-            } else {
-                // 原图
-                path = media.getPath();
-            }
+        }
 
-            Log.i(TAG, "原图地址::" + media.getPath());
-
-            if (media.isCut()) {
-                Log.i(TAG, "裁剪地址::" + media.getCutPath());
-            }
-            if (media.isCompressed()) {
-                Log.i(TAG, "压缩地址::" + media.getCompressPath());
-                Log.i(TAG, "压缩后文件大小::" + new File(media.getCompressPath()).length() / 1024 + "k");
-            }
-            if (!TextUtils.isEmpty(media.getAndroidQToPath())) {
-                Log.i(TAG, "Android Q特有地址::" + media.getAndroidQToPath());
-            }
-            if (media.isOriginal()) {
-                Log.i(TAG, "是否开启原图功能::" + true);
-                Log.i(TAG, "开启原图功能后地址::" + media.getOriginalPath());
-            }
-
-            long duration = media.getDuration();
-            viewHolder.tvDuration.setVisibility(PictureMimeType.isHasVideo(media.getMimeType())
-                    ? View.VISIBLE : View.GONE);
-            if (chooseModel == PictureMimeType.ofAudio()) {
-                viewHolder.tvDuration.setVisibility(View.VISIBLE);
-                viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
-                        (R.drawable.picture_icon_audio, 0, 0, 0);
-
-            } else {
-                viewHolder.tvDuration.setCompoundDrawablesRelativeWithIntrinsicBounds
-                        (R.drawable.picture_icon_video, 0, 0, 0);
-            }
-            viewHolder.tvDuration.setText(DateUtils.formatDurationTime(duration));
-            if (chooseModel == PictureMimeType.ofAudio()) {
-                viewHolder.mImg.setImageResource(R.drawable.picture_audio_placeholder);
-            } else {
-                Glide.with(viewHolder.itemView.getContext())
-                        .load(PictureMimeType.isContent(path) && !media.isCut() && !media.isCompressed() ? Uri.parse(path)
-                                : path)
-                        .centerCrop()
-                        .placeholder(R.color.app_color_f6)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(viewHolder.mImg);
-            }
-            //itemView 的点击事件
-            if (mItemClickListener != null) {
-                viewHolder.itemView.setOnClickListener(v -> {
-                    int adapterPosition = viewHolder.getAdapterPosition();
-                    mItemClickListener.onItemClick(v, adapterPosition);
-                });
-            }
-
-            if (mItemLongClickListener != null) {
-                viewHolder.itemView.setOnLongClickListener(v -> {
-                    int adapterPosition = viewHolder.getAdapterPosition();
-                    mItemLongClickListener.onItemLongClick(viewHolder, adapterPosition, v);
-                    return true;
-                });
-            }
+        if (mItemLongClickListener != null) {
+            viewHolder.itemView.setOnLongClickListener(v -> {
+                int adapterPosition = viewHolder.getAdapterPosition();
+                mItemLongClickListener.onItemLongClick(viewHolder, adapterPosition, v);
+                return true;
+            });
         }
     }
 
@@ -259,5 +276,9 @@ public class GridImageAdapter extends
 
     public void setItemLongClickListener(OnItemLongClickListener l) {
         this.mItemLongClickListener = l;
+    }
+
+    public void setShow(boolean isShow) {
+        this.isShow = isShow;
     }
 }

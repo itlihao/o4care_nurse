@@ -8,14 +8,21 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.decoration.GridSpacingItemDecoration;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.o4care.nurse.R;
-import com.o4care.nurse.adapter.CustomerInfoPhotoAdapter;
 import com.o4care.nurse.adapter.CustomerInfoRelationAdapter;
 import com.o4care.nurse.api.WorkerApi;
 import com.o4care.nurse.bean.CustomerInfoBean;
 import com.o4care.nurse.fragment.BaseFragment;
 import com.o4care.nurse.net.BaseTask;
+import com.o4care.nurse.widget.pictureselector.FullyGridLayoutManager;
 import com.o4care.nurse.widget.pictureselector.GlideEngine;
+import com.o4care.nurse.widget.pictureselector.GridImageAdapter;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xui.utils.WidgetUtils;
@@ -65,7 +72,10 @@ public class CustomerInfoFragment extends BaseFragment {
     ImageView ivImage;
 
     private CustomerInfoRelationAdapter infoRelationAdapter;
-    private CustomerInfoPhotoAdapter infoPhotoAdapter;
+    //    private CustomerInfoPhotoAdapter infoPhotoAdapter;
+    private GridImageAdapter mAdapter;
+
+    private List<LocalMedia> mediaSources;
 
     /**
      * @return 返回为 null意为不需要导航栏
@@ -85,6 +95,36 @@ public class CustomerInfoFragment extends BaseFragment {
         return R.layout.fragment_map;
     }
 
+    @Override
+    protected void initListeners() {
+        mAdapter.setOnItemClickListener((v, position) -> {
+            List<LocalMedia> selectList = mAdapter.getData();
+            if (selectList.size() > 0) {
+                LocalMedia media = selectList.get(position);
+                String mimeType = media.getMimeType();
+                int mediaType = PictureMimeType.getMimeType(mimeType);
+                switch (mediaType) {
+                    case PictureConfig.TYPE_VIDEO:
+                        // 预览视频
+                        PictureSelector.create(CustomerInfoFragment.this).externalPictureVideo(media.getPath());
+                        break;
+                    case PictureConfig.TYPE_AUDIO:
+                        // 预览音频
+                        PictureSelector.create(CustomerInfoFragment.this).externalPictureAudio(media.getPath());
+                        break;
+                    default:
+                        // 预览图片 可自定长按保存路径
+                        PictureSelector.create(CustomerInfoFragment.this)
+                                .themeStyle(R.style.XUIPictureStyle) // xml设置主题
+                                //.isNotPreviewDownload(true)// 预览图片长按是否可以下载
+                                .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
+                                .openExternalPreview(position, selectList);
+                        break;
+                }
+            }
+        });
+    }
+
     /**
      * 初始化控件
      */
@@ -99,9 +139,19 @@ public class CustomerInfoFragment extends BaseFragment {
         infoRelationAdapter = new CustomerInfoRelationAdapter(new ArrayList<>());
         recyclerHomeinfo.setAdapter(infoRelationAdapter);
 
-        recyclerPhotos.setLayoutManager(new GridLayoutManager(recyclerHomeinfo.getContext(), 4));
+        /*recyclerPhotos.setLayoutManager(new GridLayoutManager(recyclerHomeinfo.getContext(), 4));
         infoPhotoAdapter = new CustomerInfoPhotoAdapter(getContext(), new ArrayList<>());
-        recyclerPhotos.setAdapter(infoPhotoAdapter);
+        recyclerPhotos.setAdapter(infoPhotoAdapter);*/
+
+        mediaSources = new ArrayList<>();
+        //添加服务拍照控件
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+        recyclerPhotos.setLayoutManager( manager );
+        recyclerPhotos.addItemDecoration(new GridSpacingItemDecoration(4, ScreenUtils.dip2px(getActivity(), 8), false));
+        recyclerPhotos.setAdapter(mAdapter = new GridImageAdapter(getActivity(), null));
+        mAdapter.setList(mediaSources);
+        mAdapter.setShow(true);
+        mAdapter.setSelectMax(8);
 
         getCustomerInfo();
     }
@@ -120,7 +170,15 @@ public class CustomerInfoFragment extends BaseFragment {
                 infoRelationAdapter.refresh(contact);
 
                 List<String> photos = customerInfo.getDisease_pic();
-                infoPhotoAdapter.refresh(photos);
+
+                for (int i = 0; i < photos.size(); i++) {
+                    LocalMedia media = new LocalMedia();
+                    media.setPath(photos.get(i));
+                    mediaSources.add(media);
+                }
+//                infoPhotoAdapter.refresh(mediaSources);
+                mAdapter.setList(mediaSources);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

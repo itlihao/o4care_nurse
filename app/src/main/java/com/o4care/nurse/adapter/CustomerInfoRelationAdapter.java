@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.o4care.nurse.R;
 import com.o4care.nurse.bean.CustomerInfo;
 import com.o4care.nurse.bean.CustomerInfoBean;
+import com.o4care.nurse.widget.pictureselector.GlideEngine;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.recyclerview.XRecyclerAdapter;
